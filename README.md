@@ -1,10 +1,14 @@
 # vector
-## скачать
+### скачать
 git clone
-## собрать
+### собрать
 cd vector
+
 mkdir build && cd build
+
 cmake ..
+
 make 
-## запустить
+
+### запустить
 ./vector
