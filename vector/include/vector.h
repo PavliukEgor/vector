@@ -18,10 +18,24 @@ public:
     void pop_back();
     void resize(const std::size_t count);
 
-    // оператор присваивания
-    // оператор индексирования [] + const []
+    //Vector& operator=(const Vector& other);
+    //[]
+    //[] const 
+    // at()
+    // front()
+    //fornt const
+    // back
+    // back const
+    // data
+    // data const
+    // capacity
+    // clear - удалить все элементы из вектора
+
+    // resize
+    // swap
+    // == != < <= > >=
+
     // merge
-    // итераторы
 
 private:
     T * m_arr = nullptr;
@@ -67,6 +81,8 @@ void Vector<T>::push_back(const T& value)
     if (m_size == m_capacity) {
         reserve(m_capacity > 0 ? m_capacity * 2 : 1);
     }
+    m_arr[m_size] = value;
+    ++m_size;
 }
 
 template<typename T>
@@ -136,8 +152,8 @@ Vector<T>::Vector(const Vector<T>& other)
         delete[] reinterpret_cast<char*>(m_arr);
         throw; 
     }
-    m_arr->m_size = other.m_size;
-    m_arr->m_capacity = other.new_capacity;
+    this->m_size = other.m_size;
+    this->m_capacity = other.new_capacity;
 }
 
 template<typename T>
