@@ -19,7 +19,6 @@ public:
     void pop_back();
     void resize(const std::size_t count);
 
-
     //clear
     //insert
     //insert_range
@@ -31,32 +30,127 @@ public:
     //Vector& operator=(const Vector& other);
     //Vector& (const Vector& other);
 
-    //[]
-    //[] const 
+    // []
+    // [] const 
     // at()
     // front()
-    //fornt const
+    // front const
     // back
     // back const
     // data
     // data const
     // capacity
+    // shink_to_fit
     // clear - удалить все элементы из вектора
 
     // resize
     // swap
-    // == != < <= > >=
+    // == != < <= > >= 
+    // <=> - ?
 
     // merge
 
-    // begin
-    // cbegin
-    // end
-    // cend
-    // rbegin
-    // crbegin
-    // rend
-    // crend
+
+    class Iterator
+    {
+        public:
+            Iterator(T* ptr) : m_ptr(ptr){}
+            T& operator*(){return *m_ptr;}
+            Iterator& operator++()
+            {
+                ++m_ptr;
+                return *this;
+            }
+            Iterator& operator++(int) const
+            {
+                Iterator temp = *this;
+                ++m_ptr;
+                return temp;
+            }
+            Iterator& operator--() const
+            {
+                --m_ptr;
+                return *this;
+            }
+            Iterator& operator--(int) const
+            {
+                Iterator temp = *this;
+                --m_ptr;
+                return temp;
+            }
+            Iterator operator+(std::size_t n) const
+            {
+                return Iterator(m_ptr + n);
+            }
+            Iterator operator-(std::size_t n) const
+            {
+                return Iterator(m_ptr - n);
+            }
+            bool operator==(const Iterator& other){return m_ptr == other.m_ptr;}
+            bool operator!=(const Iterator& other){return m_ptr != other.m_ptr;}
+            bool operator<(const Iterator& other){return m_ptr < other.m_ptr;}
+            bool operator>(const Iterator& other){return m_ptr > other.m_ptr;}
+            bool operator<=(const Iterator& other){return m_ptr <= other.m_ptr;}
+            bool operator>=(const Iterator& other){return m_ptr >= other.m_ptr;}
+
+        private:
+           T* m_ptr;
+    };
+
+    class ConstIterator
+    {
+        public:
+            ConstIterator(T* ptr) : m_ptr(ptr){}
+            T& operator*(){return *m_ptr;}
+            ConstIterator& operator++()
+            {
+                ++m_ptr;
+                return *this;
+            }
+            ConstIterator& operator++(int) const
+            {
+                Iterator temp = *this;
+                ++m_ptr;
+                return temp;
+            }
+            ConstIterator& operator--() const
+            {
+                --m_ptr;
+                return *this;
+            }
+            ConstIterator& operator--(int) const
+            {
+                Iterator temp = *this;
+                --m_ptr;
+                return temp;
+            }
+            ConstIterator operator+(std::size_t n) const
+            {
+                return Iterator(m_ptr + n);
+            }
+            ConstIterator operator-(std::size_t n) const
+            {
+                return Iterator(m_ptr - n);
+            }
+            bool operator==(const ConstIterator& other){return m_ptr == other.m_ptr;}
+            bool operator!=(const ConstIterator& other){return m_ptr != other.m_ptr;}
+            bool operator<(const ConstIterator& other){return m_ptr < other.m_ptr;}
+            bool operator>(const ConstIterator& other){return m_ptr > other.m_ptr;}
+            bool operator<=(const ConstIterator& other){return m_ptr <= other.m_ptr;}
+            bool operator>=(const ConstIterator& other){return m_ptr >= other.m_ptr;}
+
+        private:
+           T* m_ptr;
+    };
+
+    [[nodiscard]] Iterator begin();
+    [[nodiscard]] Iterator end();
+    [[nodiscard]] Iterator rbegin();
+    [[nodiscard]] Iterator rend();
+    [[nodiscard]] ConstIterator cbegin() const;
+    [[nodiscard]] ConstIterator cend() const;
+    [[nodiscard]] ConstIterator crbegin() const;
+    [[nodiscard]] ConstIterator crend() const;
 
 private:
     T * m_arr = nullptr;
@@ -65,7 +159,7 @@ private:
 };
 
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////// Realisation
 
 
 template<typename T>
@@ -184,4 +278,56 @@ Vector<T>::~Vector()
             (m_arr + i)->~T();
     }
     delete[] reinterpret_cast<char*>(m_arr);
+}
+
+
+/////////////////////////////////////////////////////////////// for Iterator
+
+
+template<typename T>
+Vector<T>::Iterator Vector<T>::begin()
+{
+    return Iterator(m_arr);
+}
+
+template<typename T>
+Vector<T>::Iterator Vector<T>::end()
+{
+    return Iterator(m_arr + m_size);
+}
+
+template<typename T>
+Vector<T>::Iterator Vector<T>::rbegin()
+{
+    return Iterator(m_arr + m_size);
+}
+
+template<typename T>
+Vector<T>::Iterator Vector<T>::rend()
+{
+    return Iterator(m_arr);
+}
+
+template<typename T>
+Vector<T>::ConstIterator Vector<T>::cbegin() const
+{
+    return Iterator(m_arr);
+}
+
+template<typename T>
+Vector<T>::ConstIterator Vector<T>::cend() const
+{
+    return Iterator(m_arr + m_size);
+}
+
+template<typename T>
+Vector<T>::ConstIterator Vector<T>::crbegin() const
+{
+    return Iterator(m_arr + m_size);
+}
+
+template<typename T>
+Vector<T>::ConstIterator Vector<T>::crend() const
+{
+    return Iterator(m_arr);
 }
