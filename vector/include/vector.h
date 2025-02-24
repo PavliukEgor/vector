@@ -54,6 +54,9 @@ public:
     class Iterator
     {
         public:
+
+            using iterator_category = std::random_access_iterator_tag;
+
             Iterator(T* ptr) : m_ptr(ptr){}
             T& operator*(){return *m_ptr;}
             Iterator& operator++()
@@ -100,6 +103,9 @@ public:
     class ConstIterator
     {
         public:
+
+            using iterator_category = std::random_access_iterator_tag;
+
             ConstIterator(T* ptr) : m_ptr(ptr){}
             T& operator*(){return *m_ptr;}
             ConstIterator& operator++()
