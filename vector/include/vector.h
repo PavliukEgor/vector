@@ -14,11 +14,23 @@ public:
     void reserve(const std::size_t new_capacity);
     void push_back(const T& value);
     std::size_t size() const;
+    std::size_t max_size() const;
     bool empty() const;
     void pop_back();
     void resize(const std::size_t count);
 
+
+    //clear
+    //insert
+    //insert_range
+    //emplace
+    //emplace_back
+    //erase
+    //append_range;
+
     //Vector& operator=(const Vector& other);
+    //Vector& (const Vector& other);
+
     //[]
     //[] const 
     // at()
@@ -36,6 +48,15 @@ public:
     // == != < <= > >=
 
     // merge
+
+    // begin
+    // cbegin
+    // end
+    // cend
+    // rbegin
+    // crbegin
+    // rend
+    // crend
 
 private:
     T * m_arr = nullptr;
